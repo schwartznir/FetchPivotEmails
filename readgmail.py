@@ -8,6 +8,13 @@ from google_apis import create_service
 import re
 
 
+CLIENT_FILE = 'client_secret.json'
+API_NAME = 'gmail'
+API_VERSION = 'v1'
+SCOPES = ['https://mail.google.com/']
+service = create_service(CLIENT_FILE, API_NAME, API_VERSION, SCOPES)
+
+
 class GmailException(Exception):
 	"""gmail base exception class"""
 
@@ -101,12 +108,3 @@ def initiate_download():
 		}).execute()
 
 	print("Attachments downloaded Successfully!")
-
-
-if __name__ == '__main__':
-	CLIENT_FILE = 'client_secret.json'
-	API_NAME = 'gmail'
-	API_VERSION = 'v1'
-	SCOPES = ['https://mail.google.com/']
-	service = create_service(CLIENT_FILE, API_NAME, API_VERSION, SCOPES)
-	initiate_download()

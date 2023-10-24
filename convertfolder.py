@@ -37,5 +37,5 @@ def generate_table(folder_path, maxscore=5, pagenum=1, qnum=22):
                 result.at[idx, col_name] = row['Column Marked with X']
 
             idx += 1
-    # result.to_excel(f'Responses from page {pagenum}.xlsx')
+    result.to_excel(f'New responses from page {pagenum}.xlsx')
     return result
