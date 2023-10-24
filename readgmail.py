@@ -16,12 +16,12 @@ class NoEmailFound(GmailException):
 	"""no email found"""
 
 
-def search_emails(query_stirng: str, label_ids: List = None):
+def search_emails(query: str, label_ids: List = None):
 	try:
 		message_list_response = service.users().messages().list(
 			userId='me',
 			labelIds=label_ids,
-			q=query_string
+			q=query
 		).execute()
 
 		message_items = message_list_response.get('messages')
@@ -31,7 +31,7 @@ def search_emails(query_stirng: str, label_ids: List = None):
 			message_list_response = service.users().messages().list(
 				userId='me',
 				labelIds=label_ids,
-				q=query_string,
+				q=query,
 				pageToken=next_page_token
 			).execute()
 
@@ -52,12 +52,7 @@ def get_message_detail(message_id, msg_format='metadata', metadata_headers: List
 	return message_detail
 
 
-if __name__ == '__main__':
-	CLIENT_FILE = 'client_secret.json'
-	API_NAME = 'gmail'
-	API_VERSION = 'v1'
-	SCOPES = ['https://mail.google.com/']
-	service = create_service(CLIENT_FILE, API_NAME, API_VERSION, SCOPES)
+def initiate_download():
 	query_string = 'is:unread AND has:attachment'
 
 	save_location = os.getcwd()
@@ -106,3 +101,12 @@ if __name__ == '__main__':
 		}).execute()
 
 	print("Attachments downloaded Successfully!")
+
+
+if __name__ == '__main__':
+	CLIENT_FILE = 'client_secret.json'
+	API_NAME = 'gmail'
+	API_VERSION = 'v1'
+	SCOPES = ['https://mail.google.com/']
+	service = create_service(CLIENT_FILE, API_NAME, API_VERSION, SCOPES)
+	initiate_download()
