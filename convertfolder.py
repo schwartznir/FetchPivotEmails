@@ -2,7 +2,7 @@ import pdfplumber
 import pandas as pd
 
 # PDF extraction and data transformation
-pdf_path = "signed (1).pdf"
+# pdf_path = "signed (1).pdf"
 
 
 def extract_data_from_pdf(pdf_path, page_num, maxscore=5):
@@ -35,7 +35,9 @@ def generate_table(folder_path, maxscore=5, pagenum=1, qnum=22):
             for jdx, row in df_page.iterrows():
                 col_name = f'Response to Question number {row["Question number"]}'
                 result.at[idx, col_name] = row['Column Marked with X']
-
+            file_path = os.path.join(folder_path, filename)
+            print(f'Treated {filename}. Deleting it from disk.')
+            os.remove(file_path)
             idx += 1
     result.to_excel(f'New responses from page {pagenum}.xlsx')
     return result
