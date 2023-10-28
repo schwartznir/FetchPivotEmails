@@ -60,7 +60,7 @@ def get_message_detail(message_id, msg_format='metadata', metadata_headers: List
 
 
 def initiate_download():
-	query_string = 'is:unread AND has:attachment'
+	query_string = '-InDataFrame AND has:attachment'
 	# query_string = 'has:attachment' ## DEBUG QUERY
 
 	save_location = os.getcwd()
@@ -105,7 +105,7 @@ def initiate_download():
 					thefile.write(file_data)
 
 		service.users().messages().modify(userId='me', id=msg_id, body={
-			'removeLabelIds': ['UNREAD']
+			'addLabelIds': ['InDataFrame']
 		}).execute()
 
 	print("Attachments downloaded Successfully!")
