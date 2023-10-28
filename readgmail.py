@@ -95,7 +95,7 @@ def initiate_download():
 					file_id = 'NaN'
 
 				# Construct filename
-				filename = f'{file_id}|{date_str}.pdf'
+				filename = f'{file_id}Q{date_str}.pdf'
 
 				# Download attachment
 				request = service.users().messages().attachments().get(

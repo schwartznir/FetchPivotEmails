@@ -31,7 +31,7 @@ def generate_table(folder_path, maxscore=5, pagenum=1, qnum=22):
         if filename.endswith(".pdf"):
             pdf_path = os.path.join(folder_path, filename)
             df_page = extract_data_from_pdf(pdf_path, page_num=pagenum, maxscore=maxscore)
-            result.at[idx, 'id'], result.at[idx, 'date'] = filename.split('.')[0].split('|')
+            result.at[idx, 'id'], result.at[idx, 'date'] = filename.split('.')[0].split('Q')
             for jdx, row in df_page.iterrows():
                 col_name = f'Response to Question number {row["Question number"]}'
                 result.at[idx, col_name] = row['Column Marked with X']
