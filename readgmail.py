@@ -61,6 +61,7 @@ def get_message_detail(message_id, msg_format='metadata', metadata_headers: List
 
 def initiate_download():
 	query_string = 'is:unread AND has:attachment'
+	# query_string = 'has:attachment' ## DEBUG QUERY
 
 	save_location = os.getcwd()
 	email_messages = search_emails(query_string)

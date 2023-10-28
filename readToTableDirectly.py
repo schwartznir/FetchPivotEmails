@@ -60,12 +60,13 @@ def get_message_detail(message_id, msg_format='metadata', metadata_headers: List
     return message_detail
 
 
-def initiate_download(maxscore=5, pagenum=1, qnum=22):
+def initiate_download(maxscore=4, pagenum=1, qnum=5):
     result = pd.DataFrame(columns=[f'Response to Question number {i}' for i in range(-1, qnum + 1)])
     result = result.rename(columns={'Response to Question number -1': 'id'})
     result = result.rename(columns={'Response to Question number 0': 'date'})
     idx = 0
     query_string = 'is:unread AND has:attachment'
+    # query_string = 'has:attachment' ## DEBUGING QUERY
 
     save_location = os.getcwd()
     email_messages = search_emails(query_string)
@@ -125,5 +126,5 @@ def initiate_download(maxscore=5, pagenum=1, qnum=22):
         service.users().messages().modify(userId='me', id=msg_id, body={
             'removeLabelIds': ['UNREAD']
         }).execute()
-
+    result.to_excel(f'New responses from page {pagenum}.xlsx')
     print("Attachments downloaded Successfully!")
